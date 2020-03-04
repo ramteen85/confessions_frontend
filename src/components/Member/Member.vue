@@ -234,7 +234,7 @@ export default {
                 axios.post(`${process.env.VUE_APP_URL}/auth/saveRoughUserLoc`,{
                     data: {
                         token: localStorage.getItem("jwt"),
-                        ip: res.data.ip
+                        ip: res.data
                     }
                 })
                 .then(() => {
