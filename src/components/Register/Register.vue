@@ -107,7 +107,7 @@ export default {
             } else {
                 //send signal
 
-                axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/register`, {
+                axios.post(`${process.env.VUE_APP_URL}/auth/register`, {
                     result
                 })
                 .then(res => {
