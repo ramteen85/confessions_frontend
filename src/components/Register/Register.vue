@@ -107,7 +107,7 @@ export default {
             } else {
                 //send signal
 
-                axios.put(`${process.env.VUE_APP_URL}/auth/register`, {
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/register`, {
                     result
                 })
                 .then(res => {
@@ -123,7 +123,7 @@ export default {
                     this.$router.push('/members/closest');
                 })
                 .catch(err => {
-                    console.log("error");
+                    console.log(err);
                     // print error message
                     this.errorMsg = err.response.data.data[0].msg;
                 });

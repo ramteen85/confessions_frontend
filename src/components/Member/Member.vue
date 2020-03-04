@@ -218,12 +218,15 @@ export default {
         },
         saveRoughLoc() {
             // get rough location if true location isnt already known
-
+            console.log('saving rough loc...');
+            console.log(process.env.VUE_APP_GEOSITE);
             // get ip address
 
-            axios.get(`${process.env.GEOSITE}`)
+            axios.get(process.env.VUE_APP_GEOSITE)
             .then(res => {
                 // got users ip address
+                console.log('got rough ip!');
+                console.log(res);
                 return res;
             })
             .then(res => {
@@ -233,17 +236,6 @@ export default {
                         token: localStorage.getItem("jwt"),
                         ip: res.data.ip
                     }
-                })
-                .then((result) => {
-                    // return rough data
-                    this.country = result.data.user.country;
-                    this.countryCode = result.data.user.countryCode;
-                    this.suburb = result.data.user.suburb;
-                    this.state = result.data.user.state;
-                    this.lat = result.data.user.lat;
-                    this.lng = result.data.user.lng;
-                    this.trueLoc = result.data.user.trueLoc;
-                    return;
                 })
                 .then(() => {
                     // load confessions
@@ -257,6 +249,7 @@ export default {
             })
             .catch(err => {
                 // let user know that page cannot load until they allow geolocation
+                console.log('geolocation failed');
                 console.log(err);
             });
 
@@ -282,7 +275,7 @@ export default {
         });
 
         // check for location
-        axios.post(`${process.env.VUE_APP_URL}/auth/getUserLoc`, {
+        axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/getUserLoc`, {
             data: {
                 token: localStorage.getItem("jwt")
             }
@@ -340,6 +333,7 @@ export default {
         })
         .catch(err => {
             // backend failed
+            console.log('');
             console.log(err);
         });
     }
