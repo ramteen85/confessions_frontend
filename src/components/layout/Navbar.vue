@@ -179,9 +179,6 @@ export default {
 
                 // check for inbox
                 this.insideInbox = this.$router.app._route.path.startsWith(`/inbox/${this.userId}`) || this.$router.app._route.path.startsWith(`/inbox/${this.$route.params.id}`);
-
-                // check if read
-                this.checkIfRead();
             }
         }
     },
