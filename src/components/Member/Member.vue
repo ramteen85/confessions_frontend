@@ -246,7 +246,12 @@ export default {
                     this.state = res.data.user.state;
                     this.suburb = res.data.user.suburb;
                     this.country = res.data.user.country;
+                    console.log('loading confessions...');
                     // load confessions
+
+                    return;
+                })
+                .then(() => {
                     this.getConfessions();
                 })
                 .catch(err => {
