@@ -230,6 +230,7 @@ export default {
                 return res;
             })
             .then(res => {
+                console.log('ip: ', res.data);
                 // send user ip to server
                 axios.post(`${process.env.VUE_APP_URL}/auth/saveRoughUserLoc`,{
                     data: {
