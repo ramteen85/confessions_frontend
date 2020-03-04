@@ -1,6 +1,6 @@
 # Live Site
 ----------------------------
-https://ramteen85.github.io/confessions_frontend/#/members/closest
+https://ramteen85.github.io/confessions_frontend/#/
 
 
 # confessions_frontend
