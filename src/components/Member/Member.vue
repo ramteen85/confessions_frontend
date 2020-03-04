@@ -167,6 +167,7 @@ export default {
                 }
             })
             .then(res => {
+                console.log('confessions: ', res);
                 this.confessions = res.data.confessions;
                 this.distance = res.data.distance;
             })
