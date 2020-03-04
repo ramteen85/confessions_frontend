@@ -240,6 +240,11 @@ export default {
                 })
                 .then((res) => {
                     console.log(res);
+                    this.lat = res.data.user.location[1];
+                    this.lng = res.data.user.location[0];
+                    this.state = res.data.user.state;
+                    this.suburb = res.data.user.suburb;
+                    this.country = res.data.user.country;
                     // load confessions
                     this.getConfessions();
                 })
