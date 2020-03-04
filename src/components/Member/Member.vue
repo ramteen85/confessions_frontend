@@ -275,7 +275,7 @@ export default {
         });
 
         // check for location
-        axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/getUserLoc`, {
+        axios.post(`${process.env.VUE_APP_URL}/auth/getUserLoc`, {
             data: {
                 token: localStorage.getItem("jwt")
             }
