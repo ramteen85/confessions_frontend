@@ -238,7 +238,8 @@ export default {
                         ip: res.data
                     }
                 })
-                .then(() => {
+                .then((res) => {
+                    console.log(res);
                     // load confessions
                     this.getConfessions();
                 })
