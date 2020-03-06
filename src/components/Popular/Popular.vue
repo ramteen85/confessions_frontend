@@ -410,7 +410,7 @@ export default {
         -webkit-box-shadow: 5px 7px 6px 0px rgba(50, 50, 50, 0.65);
         -moz-box-shadow:    5px 7px 6px 0px rgba(50, 50, 50, 0.65);
         box-shadow:         5px 7px 6px 0px rgba(50, 50, 50, 0.65);
-        height: 20em;
+        height: 17em;
         width: 10em;
         box-shadow: #cccccc;
         margin: 0 0 1em 1em;
