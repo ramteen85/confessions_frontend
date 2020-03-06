@@ -420,7 +420,7 @@ export default {
     }
 
     .distance {
-        width: 5em;
+        width: 100%;
         margin-right: .5em;
         padding: .4em;
     }
