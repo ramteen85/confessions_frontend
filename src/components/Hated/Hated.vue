@@ -197,7 +197,7 @@ export default {
 
             // get ip address
 
-            axios.get(`${process.env.GEOSITE}`)
+            axios.get(`${process.env.VUE_APP_GEOSITE}`)
             .then(res => {
                 // got users ip address
                 return res;
