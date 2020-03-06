@@ -7,7 +7,7 @@
         </div>
         <div class="main">
             <h2>Popular Confessions</h2>
-            <div class="pagination">
+            <div v-if="loading===false" class="pagination">
                 <div v-if="this.page !== 1" class="left" >
                     <div class="arrow" @click="prevPage">
                         &lt;-- Prev
@@ -24,7 +24,10 @@
                     </div>
                 </div>
             </div>
-            <div class="deck">
+            <div v-if="loading===true" class="loadingScreen">
+                <img :src="loadingPath" alt="">
+            </div>
+            <div v-if="loading===false" class="deck">
                 <div v-for="confession in confessions" :key="confession._id" class="card">
                     <div class="cardbody">
                         <div class="linkto" @click="() => showConfession(confession._id)">
@@ -82,6 +85,7 @@ export default {
             trueLoc: false,
             loadConfessions: false,
             distance: 50,
+            loading: true,
             token: '',
             userId: '',
             page: 1
@@ -161,6 +165,12 @@ export default {
             })
             .then(res => {
                 this.confessions = res.data.confessions;
+                this.confessions.forEach(conf => {
+                    if(conf.subject.length > 95) {
+                        conf.subject = conf.subject.substr(0, 92) + '...';
+                    }
+                });
+                this.loading = false;
             })
             .catch(err => {
                 console.log(err);
@@ -238,6 +248,11 @@ export default {
                 console.log(err);
             });
 
+        }
+    },
+    computed : {
+        loadingPath(){
+            return "/img/loading.gif";
         }
     },
     mounted() {
@@ -398,6 +413,18 @@ export default {
         padding: 2em;
     }
 
+    .loadingScreen {
+        flex: 8;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
     .cardbody {
         display: flex;
         flex-direction: column;
@@ -438,6 +465,7 @@ export default {
         flex: 4;
         padding: 1em;
         font-size: 12px;
+        word-break: break-word;
     }
 
     .card-image-container {
@@ -547,7 +575,6 @@ export default {
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-bottom: 2em;
     }
 
     .left,

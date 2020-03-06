@@ -14,7 +14,7 @@
         </div>
         <div class="main">
             <h2>Confessions Near You...</h2>
-             <div class="pagination">
+             <div v-if="loading==false" class="pagination">
                 <div v-if="this.page !== 1" class="left" >
                     <div class="arrow" @click="prevPage">
                         &lt;-- Prev
@@ -31,7 +31,10 @@
                     </div>
                 </div>
             </div>
-            <div class="deck">
+            <div v-if="loading==true" class="loadingScreen">
+                <img :src="loadingPath" alt="">
+            </div>
+            <div v-if="loading==false" class="deck">
                 <div v-for="confession in confessions" :key="confession._id" class="card">
                     <div class="cardbody">
                         <div class="linkto" @click="() => showConfession(confession._id)">
@@ -88,6 +91,7 @@ export default {
             suburb: '',
             trueLoc: false,
             loadConfessions: false,
+            loading: true,
             distance: 50,
             token: '',
             userId: '',
@@ -166,6 +170,7 @@ export default {
             return moment(String(date)).startOf('hour').fromNow();
         },
         getConfessions() {
+            this.loading = true;
             axios.post(`${process.env.VUE_APP_URL}/confessions/closest`, {
                 confData: {
                     token: this.token,
@@ -176,6 +181,12 @@ export default {
                 console.log('confessions: ', res);
                 this.confessions = res.data.confessions;
                 this.distance = res.data.distance;
+                this.confessions.forEach(conf => {
+                    if(conf.subject.length > 95) {
+                        conf.subject = conf.subject.substr(0, 92) + '...';
+                    }
+                });
+                this.loading = false;
             })
             .catch(err => {
                 console.log(err);
@@ -274,6 +285,12 @@ export default {
 
         }
     },
+    computed : {
+        loadingPath(){
+            return "/img/loading.gif";
+        }
+    },
+
     mounted() {
 
         // token
@@ -436,6 +453,18 @@ export default {
         padding: 2em;
     }
 
+    .loadingScreen {
+        flex: 8;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
     .cardbody {
         display: flex;
         flex-direction: column;
@@ -476,6 +505,7 @@ export default {
         flex: 4;
         padding: 1em;
         font-size: 12px;
+        word-break: break-word;
     }
 
     .card-image-container {
@@ -585,7 +615,6 @@ export default {
         justify-content: center;
         align-items: center;
         width: 100%;
-        margin-bottom: 0;
     }
 
     .left,
