@@ -255,7 +255,7 @@ export default {
     },
     computed : {
         loadingPath(){
-            return "/img/loading.gif";
+            return "img/loading.gif";
         }
     },
     mounted() {
