@@ -7,6 +7,23 @@
         </div>
         <div class="main">
             <h2>Hated Confessions</h2>
+            <div class="pagination">
+                <div v-if="this.page !== 1" class="left" >
+                    <div class="arrow" @click="prevPage">
+                        &lt;-- Prev
+                    </div>
+                </div>
+                <div v-if="this.page === 1" class="left" >
+                    <div class="">
+                        
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="arrow" @click="nextPage">
+                        Next --&gt;
+                    </div>
+                </div>
+            </div>
             <div class="deck">
                 <div v-for="confession in confessions" :key="confession._id" class="card">
                     <div class="cardbody">
@@ -40,18 +57,6 @@
                         <div class="timestamp">
                             {{ timeAgo(confession.createdAt) }}
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pagination">
-                <div class="left" >
-                    <div class="arrow" @click="prevPage">
-                        &lt;&lt;&lt;&lt;
-                    </div>
-                </div>
-                <div class="right">
-                    <div class="arrow" @click="nextPage">
-                        &gt;&gt;&gt;&gt;
                     </div>
                 </div>
             </div>
@@ -330,7 +335,7 @@ export default {
         flex-wrap: wrap;
     }
     .sidebar {
-        flex: 2;
+        flex: 1;
         height: auto;
         background-color: #a4a1a1;
         display: flex;
@@ -357,6 +362,11 @@ export default {
 
     .block input {
         text-align: center;
+    }
+
+    .distance-text {
+        display: block;
+        margin-top: 1em;
     }
 
     .distance {
@@ -546,7 +556,7 @@ export default {
     .left,
     .right {
         flex: 1;
-        margin-top: 4em;
+        margin-top: 0;
     }
 
     .left {
@@ -566,8 +576,8 @@ export default {
 
     .arrow {
         max-width: 5em;
-        padding: 1em;
-        border: 1px solid red;
+        padding: .4em;
+        border: none;
         cursor: pointer;
     }
 
