@@ -18,7 +18,12 @@
                         
                     </div>
                 </div>
-                <div class="right">
+                <div v-if="confessions.length<6" class="right" >
+                    <div class="">
+                        
+                    </div>
+                </div>
+                <div v-if="confessions.length>=6" class="right">
                     <div class="arrow" @click="nextPage">
                         Next --&gt;
                     </div>
@@ -95,7 +100,10 @@ export default {
         nextPage() {
             if(this.confessions.length < 8) {
                 // do nothing
-            } else {
+            } else if(this.confessions.length === 0) {
+                this.prevPage();
+            }
+            else {
                 this.page += 1;
             }
             this.getConfessions();
@@ -253,7 +261,7 @@ export default {
     },
     computed : {
         loadingPath(){
-            return "img/loading.gif";
+            return "../img/loading.gif";
         }
     },
     mounted() {
