@@ -98,6 +98,7 @@ export default {
     },
     methods: {
         nextPage() {
+            this.loading = true;
             if(this.confessions.length < 8) {
                 // do nothing
             } else if(this.confessions.length === 0) {
@@ -109,6 +110,7 @@ export default {
             this.getConfessions();
         },
         prevPage(){
+            this.loading = true;
             if(this.page == 1) {
                 this.page = 1;
             } else {
