@@ -178,7 +178,6 @@ export default {
             return moment(String(date)).startOf('hour').fromNow();
         },
         getConfessions() {
-            this.loading = true;
             axios.post(`${process.env.VUE_APP_URL}/confessions/closest`, {
                 confData: {
                     token: this.token,
@@ -317,6 +316,8 @@ export default {
         this.$socket.on('refresh', () => {
             this.getConfessions();
         });
+
+        this.loading = true;
 
         // check for location
         axios.post(`${process.env.VUE_APP_URL}/auth/getUserLoc`, {
