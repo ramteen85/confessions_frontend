@@ -30,7 +30,7 @@
                                 <router-link to="#">Go To Inbox</router-link>
                             </li>
                             <li v-if="loggedin" class="dropdown-menu__item messages-item">
-                                <router-link to="#">Mark All As Read</router-link>
+                                <a class="btn" @click="markAllMessages">Mark All As Read</a>
                             </li>
                             <hr>
                             <li v-for="chat of chatList" :key="chat._id" class="dropdown-menu__item messages-item">
@@ -89,6 +89,7 @@ export default {
             messageMenuShow: false,
             notificationMenuShow: false,
             chatList: [],
+            onlineUsers: [],
             userId: '',
             msgNumber: 0,
             insideInbox: false,
@@ -97,24 +98,41 @@ export default {
     },
     methods: {
         markMessages(senderId, receiverId, checkSenderId) {
-        if(this.userId === checkSenderId) {
-        axios.post(`${process.env.VUE_APP_URL}/messages/markread`, {
-          data: {
-            token: this.token,
-            senderId: senderId,
-            receiverId: receiverId
-          }
-        })
-        .then(result => {
-          this.$socket.emit('refresh', {});
-          console.log('messages marked');
-          console.log(result);
-        })
-        .catch(error => {
-          console.log(error)
-        });
-        }
-      },
+            if(this.userId === checkSenderId) {
+                axios.post(`${process.env.VUE_APP_URL}/messages/markread`, {
+                    data: {
+                        token: this.token,
+                        senderId: senderId,
+                        receiverId: receiverId
+                    }
+                })
+                .then(result => {
+                    this.$socket.emit('refresh', {});
+                    console.log('messages marked');
+                    console.log(result);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            }
+        },
+        markAllMessages(event) {
+            event.preventDefault();
+            axios.post(`${process.env.VUE_APP_URL}/messages/markallread`, {
+                data: {
+                    token: this.token,
+                    senderId: this.userId
+                }
+            })
+            .then((result) => {
+                console.log(result);
+                this.$socket.emit('refresh', {});
+                this.msgNumber = 0;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        },
         getChatList() {
             axios.post(`${process.env.VUE_APP_URL}/auth/getChatList`, {
                 data: {
@@ -182,6 +200,11 @@ export default {
         }
     },
     watch: {
+        onlineUsers: {
+            handler: function() {
+                eventBus.$emit('usersOnline', this.onlineUsers);
+            }
+        },
         '$route': function () {
             if(localStorage.getItem("jwt")) {
                 this.loggedin = true;
@@ -201,13 +224,16 @@ export default {
 
                 // check for inbox
                 this.insideInbox = this.$router.app._route.path.startsWith(`/inbox/${this.userId}`) || this.$router.app._route.path.startsWith(`/inbox/${this.$route.params.id}`);
+
+                // user is online
+                this.$socket.emit('online', { room: 'global', userId: this.userId });
             }
         }
     },
     created() {
         eventBus.$on('userloggedin', () => {
             this.loggedin = true;
-        })
+        });
     },
     mounted() {
         if(localStorage.getItem("jwt")) {
@@ -224,8 +250,22 @@ export default {
             // get chat list
             this.getChatList();
 
+            // socket listeners
+            this.$socket.on('refresh', () => {
+                this.getChatList();
+            });
+
+            this.$socket.on('usersOnline', data => {
+                this.onlineUsers = data;
+                console.log(this.onlineUsers);
+                eventBus.$emit('usersOnline', data);
+            });
+
             // check for inbox
             this.insideInbox = this.$router.app._route.path.startsWith(`/inbox/${this.userId}`) || this.$router.app._route.path.startsWith(`/inbox/${this.$route.params.id}`);
+
+            // user is online
+            this.$socket.emit('online', { room: 'global', userId: this.userId });
         }
 
     }

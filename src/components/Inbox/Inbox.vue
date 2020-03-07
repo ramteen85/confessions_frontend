@@ -2,7 +2,8 @@
     <div class="page">
         <div class="main">
             <div class="namePanel">
-                <h2 class="user-heading">{{ data.receiverName }} (online)</h2>
+                <h2 v-if="receiverOnline" class="user-heading">{{ data.receiverName }} (online)</h2>
+                <h2 v-if="!receiverOnline" class="user-heading">{{ data.receiverName }} (offline)</h2>
             </div>
             <div id="messageContainer" class="messageContainer">
                 <div class="msgWrapper" v-for="msg of messagesArray" :key="msg._id">
@@ -18,8 +19,6 @@
                             <p>{{ msg.body }}</p>
                         </hgroup>
                     </div>
-
-                    
                 </div>
                 <div class="message them typing" v-if="isTyping === true">
                         {{ this.receiverName }} is typing a message...
@@ -43,6 +42,8 @@
 
 <script>
 import axios from 'axios';
+import { eventBus } from '../../main';
+import _ from 'lodash';
 
 export default {
     data() {
@@ -55,9 +56,11 @@ export default {
             messagesArray: [],
             data: '',
             token: '',
+            receiverOnline: false,
             isTyping: false,
             typingMessage: null,
-            emojiShow: false
+            emojiShow: false,
+            onlineUsers: []
         }
     },
     methods: {
@@ -102,6 +105,14 @@ export default {
         var container = this.$el.querySelector("#messageContainer");
         container.scrollTop = container.scrollHeight;
       },
+      checkOnline() {
+        let result = _.indexOf(this.onlineUsers, this.receiverId);
+        if(result > -1) {
+          this.receiverOnline = true;
+        } else {
+          this.receiverOnline = false;
+        }
+      },
       sendMessage(event) {
           event.preventDefault();
           if(this.message) {
@@ -135,13 +146,13 @@ export default {
         }
 
         // get params
-        let params = this.$route.params.id;
+        this.receiverId = this.$route.params.id;
 
         // get your user id
         this.userId = localStorage.getItem("userId");
 
         // get messages
-        this.getAllMessages(this.userId, params);
+        this.getAllMessages(this.userId, this.receiverId);
 
          // join socket chat
         let typingObject = {
@@ -178,6 +189,14 @@ export default {
           }
         });
 
+    },
+    created() {
+      eventBus.$on('usersOnline', (data) => {
+        console.log('users online triggered in inbox');
+        console.log(data);
+        this.onlineUsers = data;
+        this.checkOnline();
+      })
     },
     watch: {
     '$route.params.id': function (id) {
