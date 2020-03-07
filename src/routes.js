@@ -8,6 +8,7 @@ import ShowConfession from './components/ShowConfession/ShowConfession.vue';
 import Latest from './components/Latest/Latest.vue';
 import Popular from './components/Popular/Popular.vue';
 import Hated from './components/Hated/Hated.vue';
+import Conversations from './components/Conversations/Conversations.vue';
 
 export const routes = [
   { path: '/', component: Login },
@@ -18,6 +19,7 @@ export const routes = [
   { path: '/members/hated', component: Hated },
   { path: '/confessions/new', component: NewConfession },
   { path: '/confessions/show/:id', component: ShowConfession },
+  { path: '/inbox/conversations', component: Conversations },
   { path: '/inbox/:id', component: Inbox },
-  { path: '/admin/gmap', component: GMap   }
+  { path: '/admin/gmap', component: GMap }
 ];

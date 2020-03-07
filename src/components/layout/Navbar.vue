@@ -27,7 +27,7 @@
                         <div style="position: relative">
                         <ul v-if="messageMenuShow" class="messages-menu">
                             <li v-if="loggedin" class="dropdown-menu__item messages-item">
-                                <router-link to="#">Go To Inbox</router-link>
+                                <a class="btn" @click="viewConversations">View Conversations</a>
                             </li>
                             <li v-if="loggedin" class="dropdown-menu__item messages-item">
                                 <a class="btn" @click="markAllMessages">Mark All As Read</a>
@@ -97,6 +97,9 @@ export default {
         }
     },
     methods: {
+        viewConversations() {
+            this.$router.push('/inbox/conversations');
+        },
         markMessages(senderId, receiverId, checkSenderId) {
             if(this.userId === checkSenderId) {
                 axios.post(`${process.env.VUE_APP_URL}/messages/markread`, {
