@@ -371,6 +371,8 @@ export default {
     .main h2 {
         flex: 1;
         margin-top: 2em;
+        max-height: 2em;
+        margin-bottom: .5em;
     }
 
     .block {
@@ -408,17 +410,18 @@ export default {
     }
 
     .deck {
-        flex: 5;
+        flex: 7;
         width: 100%;
+        max-height: 20em;
         height: auto;
-        margin: 2em auto;
+        margin: 0 auto;
         display: flex;
         max-width: 50em;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding: 2em;
+        padding: 0;
     }
 
     .loadingScreen {
@@ -583,6 +586,7 @@ export default {
         justify-content: center;
         align-items: center;
         width: 100%;
+        max-height: 3em;
     }
 
     .left,

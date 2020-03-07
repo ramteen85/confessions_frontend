@@ -34,6 +34,7 @@
                             </li>
                             <hr>
                             <li v-for="chat of chatList" :key="chat._id" class="dropdown-menu__item messages-item">
+                                <div class="messageItem" @click="markMessages(chat.message[chat.message.length-1].senderId, chat.message[chat.message.length-1].receiverId, userId)">
                                 <router-link v-if="loggedin" :to="userId !== chat.message[chat.message.length-1].receiverId ? '/inbox/' + chat.message[chat.message.length-1].receiverId : '/inbox/' + chat.message[chat.message.length-1].senderId">
                                 <div class="messageColumn">
                                     <img class="avatar" src="http://placehold.it/50x50" alt="">
@@ -45,10 +46,12 @@
                                 </div>
                                 <div class="messsageColumn">
                                     <span class="date">{{ timeAgo(chat.message[chat.message.length-1].createdAt) }}</span>
-                                    <font-awesome-icon v-if="!chat.message[chat.message.length-1].isRead" icon="book-medical" />
+                                    <font-awesome-icon v-if="!chat.message[chat.message.length-1].isRead && chat.message[chat.message.length-1].receiverId === userId" icon="book-medical" />
+                                    <font-awesome-icon v-if="!chat.message[chat.message.length-1].isRead && chat.message[chat.message.length-1].senderId === userId" icon="envelope-open" />
                                     <font-awesome-icon v-if="chat.message[chat.message.length-1].isRead" icon="envelope-open" />
                                 </div>
                             </router-link>
+                            </div>
                             </li>
                         </ul>
                         </div>
@@ -93,6 +96,25 @@ export default {
         }
     },
     methods: {
+        markMessages(senderId, receiverId, checkSenderId) {
+        if(this.userId === checkSenderId) {
+        axios.post(`${process.env.VUE_APP_URL}/messages/markread`, {
+          data: {
+            token: this.token,
+            senderId: senderId,
+            receiverId: receiverId
+          }
+        })
+        .then(result => {
+          this.$socket.emit('refresh', {});
+          console.log('messages marked');
+          console.log(result);
+        })
+        .catch(error => {
+          console.log(error)
+        });
+        }
+      },
         getChatList() {
             axios.post(`${process.env.VUE_APP_URL}/auth/getChatList`, {
                 data: {
@@ -350,13 +372,13 @@ export default {
 
 /* all columns */
 
-#app > div > nav > div > ul > li > div > ul > li > a > div {
+#app > div > nav > div > ul > li > div > ul > li > div > a > div {
     display: flex;
     flex-direction: column;
 }
 
 /* first column */
-#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > div > ul > li > a > div.messageColumn {
+#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > div > ul > li > div > a > div.messageColumn {
     flex: 1;
     margin-right: 1em;
     justify-content: center;
@@ -364,7 +386,7 @@ export default {
 }
 
 /* second column */
-#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > div > ul > li > a > div:nth-child(2) {
+#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > div > ul > li > div > a > div:nth-child(2) {
     flex: 5;
     margin-right: .5em;
     justify-content: flex-start;
@@ -372,7 +394,7 @@ export default {
 }
 
 /* third column */
-#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > div > ul > li > a > div:nth-child(3) {
+#app > div:nth-child(1) > nav > div > ul > li:nth-child(1) > div > ul > li > div > a > div:nth-child(3) {
     flex: 2;
     margin-right: unset;
     justify-content: center;
