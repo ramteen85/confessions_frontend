@@ -149,7 +149,8 @@ export default {
                 this.checkIfRead(conversations);
             })
             .catch(err => {
-                console.log(err);
+                err.statusCode = 500;
+                next(err);
             });
         },
         logout() {
