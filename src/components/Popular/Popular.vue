@@ -37,7 +37,7 @@
                     <div class="cardbody">
                         <div class="linkto" @click="() => showConfession(confession._id)">
                             <div class="card-image-container">
-                                <img class="card-img" :src="imageUrl" alt="">
+                                <img class="card-img" :src="confession.imageUrl" alt="">
                             </div>
                             <div class="card-title">
                                 <!-- needs to have a character limit of 208 -->
