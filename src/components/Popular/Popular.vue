@@ -37,7 +37,7 @@
                     <div class="cardbody">
                         <div class="linkto" @click="() => showConfession(confession._id)">
                             <div class="card-image-container">
-                                <img class="card-img" src="https://www.bigstockphoto.com/blog/wp-content/uploads/2014/01/66006-bigstock-confession-concept-42406879.jpg" alt="">
+                                <img class="card-img" :src="imageUrl" alt="">
                             </div>
                             <div class="card-title">
                                 <!-- needs to have a character limit of 208 -->
@@ -491,6 +491,9 @@ export default {
 
     .card-img > img {
         width: 100%;
+        height: 100%;
+        min-height: 9em;
+        max-height: 9em;
     }
 
     .card-panel {

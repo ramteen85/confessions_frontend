@@ -533,6 +533,9 @@ export default {
 
     .card-img > img {
         width: 100%;
+        height: 100%;
+        min-height: 9em;
+        max-height: 9em;
     }
 
     .card-panel {
