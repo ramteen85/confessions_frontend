@@ -44,7 +44,7 @@
                     <div class="cardbody">
                         <div class="linkto" @click="() => showConfession(confession._id)">
                             <div class="card-image-container">
-                                <img class="card-img" src="https://www.bigstockphoto.com/blog/wp-content/uploads/2014/01/66006-bigstock-confession-concept-42406879.jpg" alt="">
+                                <img class="card-img" :src="confession.imageUrl" alt="">
                             </div>
                             <div class="card-title">
                                 <!-- needs to have a character limit of 208 -->
