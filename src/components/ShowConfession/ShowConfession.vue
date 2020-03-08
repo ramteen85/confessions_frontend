@@ -8,7 +8,7 @@
                 <div>{{ post }}</div>
             </div>
             <div class="section small">
-                <img src="https://www.bigstockphoto.com/blog/wp-content/uploads/2014/01/66006-bigstock-confession-concept-42406879.jpg" alt="" />
+                <img :src="imageUrl" alt="" />
             </div>
             <div class="section small">
                 <div class="catwrapper">
@@ -66,7 +66,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            imageUrl: 'https://www.bigstockphoto.com/blog/wp-content/uploads/2014/01/66006-bigstock-confession-concept-42406879.jpg',
+            imageUrl: '',
             categories: 'Anonymous, Private Thoughts',
             subject: '',
             post: '',
@@ -164,6 +164,7 @@ export default {
                 this.id = res.data.confession._id;
                 this.creatorId = res.data.confession.creator._id;
                 this.distance = parseInt(res.data.distance);
+                this.imageUrl = res.data.confession.imageUrl;
             })
             .catch(err => {
                 console.log(err);
