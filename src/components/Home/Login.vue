@@ -197,4 +197,14 @@ export default {
         background: pink;
         color: white;
     }
+
+    .container > .expiredTokenMessage {
+        display: block;
+        text-align: center;
+        width: 50%;
+        padding: 1em;
+        border: 2px solid rgb(174, 23, 216);
+        color: rgb(174, 23, 216);
+        margin: 1em auto;
+    }
 </style>
