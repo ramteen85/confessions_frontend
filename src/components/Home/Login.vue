@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <h1 class="login-title">Sign Into Your Account</h1>
+        <h2 v-if="tokenExpired === true" class="expiredTokenMessage">Token Expired. Please Log in again</h2>
         <form class="login">
             <span style="display: flex; justify-content: center; margin-top: 1.6em;" class="errortext">{{errorMsg}}</span>
             <input type="email" class="login-input" placeholder="Email address" :class="{invalidbox: $v.userData.email.$error}" @blur="$v.userData.email.$touch()" v-model="userData.email">
@@ -25,7 +26,8 @@ export default {
             userData: {
                 email: '',
                 password: ''
-            }
+            },
+            tokenExpired: false
         }
     },
     validations: {
@@ -42,6 +44,12 @@ export default {
     mounted() {
         if(localStorage.getItem("jwt")) {
             this.$router.push('/members/closest');
+        }
+
+        console.log(this.$route.params.tokenExpired);
+
+        if(this.$route.params.tokenExpired === "expired") {
+            this.tokenExpired = true;
         }
 
         console.log(process.env.VUE_APP_URL);

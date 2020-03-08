@@ -12,6 +12,7 @@ import Conversations from './components/Conversations/Conversations.vue';
 
 export const routes = [
   { path: '/', component: Login },
+  { path: '/:tokenExpired', component: Login },
   { path: '/register', component: Register },
   { path: '/members/closest', component: Member },
   { path: '/members/latest', component: Latest },

@@ -144,6 +144,7 @@ export default {
                 }
             })
             .then(conversations => {
+                this.invalidTokenHandler(conversations);
                 console.log(conversations);
                 this.chatList = conversations.data.conversations;
                 this.checkIfRead(conversations);
@@ -168,6 +169,20 @@ export default {
             this.mainMenuShow = false;
             this.messageMenuShow = false;
             this.notificationMenuShow = !this.notificationMenuShow;
+        },
+        invalidTokenHandler(callback) {
+            console.log('callback');
+            console.log(callback);
+            if((callback.message === 'invalid token') || (callback.data.message === 'invalid token')) {
+                // logout
+                localStorage.removeItem("jwt");
+                localStorage.removeItem("userId");
+                this.loggedin = false;
+                this.chatList = [];
+                this.$router.push('/expired');
+            } else {
+                return;
+            }
         },
         timeAgo(date) {
             return moment(String(date)).startOf('hour').fromNow();
