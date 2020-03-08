@@ -4,11 +4,11 @@
             <div class="section heading">
                 <h1>{{ this.subject }}</h1>
             </div>
-            <div class="section post">
-                <div>{{ post }}</div>
-            </div>
             <div class="section small">
                 <img :src="imageUrl" alt="" />
+            </div>
+            <div class="section post">
+                <div>{{ post }}</div>
             </div>
             <div class="section small">
                 <div class="catwrapper">
@@ -45,10 +45,8 @@
                         <button @click="messageUser" class="btn delete">Message {{ this.creator }}</button>
                     </div>
                 </div>
-            </div>
-            <div v-if="this.userId !== this.creatorId" class="section panel-section">
                 <div class="post-panel">
-                    <p style="font-style: italic;">User is about {{ distance }} km from you...</p>
+                    <p style="font-style: italic;">Distance from you: {{ distance }} km</p>
                 </div>
             </div>
             <!-- <div class="section large">
@@ -219,14 +217,14 @@ export default {
         -moz-box-shadow:    5px 7px 6px 0px rgba(50, 50, 50, 0.65);
         box-shadow:         5px 7px 6px 0px rgba(50, 50, 50, 0.65);
         border: 2px solid #eeeeee;
-        margin-top: 5em;
+        margin-top: 1em;
         margin-bottom: 5em;
-        padding: 3em;
+        padding: 1em;
         flex: 1;
         display: flex;
         flex-direction: column;
-        min-width: 60%;
-        max-width: 60%;
+        min-width: 40%;
+        max-width: 40%;
         height: auto;
     }
 
@@ -250,13 +248,16 @@ export default {
         word-break: break-all;
     }
 
-    .section img {
+    .section > img {
         width: 100%;
         height: 100%;
-        max-height: 20em;
+        max-height: 10em;
+        max-width: 20em;
     }
 
     .panel-section {
+        height: 5em;
+        border-top: 1px solid grey;
         flex-direction: row;
         padding: 1em;
         justify-content: center;
@@ -266,13 +267,14 @@ export default {
 
     .reactbtn {
         max-width: 2em;
-        padding: 1em 2em 1em 2em;
+        padding: 5% 10% 5% 10%;
         border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        height: 100%;
     }
     .reactbtn:hover {
         background-color: lime;
@@ -300,6 +302,7 @@ export default {
 
     .section > h1 {
         text-align: center;
+        font-size: 1.5em;
     }
 
     .section > small {
@@ -332,6 +335,7 @@ export default {
 
     .section > .post {
         margin-top: 2em;
+        font-size: .7em;
     }
 
 
