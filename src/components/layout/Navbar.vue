@@ -47,8 +47,8 @@
                                 <div class="messsageColumn">
                                     <span class="date">{{ timeAgo(chat.message[chat.message.length-1].createdAt) }}</span>
                                     <font-awesome-icon v-if="!chat.message[chat.message.length-1].isRead && chat.message[chat.message.length-1].receiverId === userId" icon="book-medical" />
-                                    <font-awesome-icon v-if="!chat.message[chat.message.length-1].isRead && chat.message[chat.message.length-1].senderId === userId" icon="envelope-open" />
-                                    <font-awesome-icon v-if="chat.message[chat.message.length-1].isRead" icon="envelope-open" />
+                                    <font-awesome-icon style="margin-top: 1em;" v-if="!chat.message[chat.message.length-1].isRead && chat.message[chat.message.length-1].senderId === userId" icon="envelope-open" />
+                                    <font-awesome-icon style="margin-top: 1em;" v-if="chat.message[chat.message.length-1].isRead" icon="envelope-open" />
                                 </div>
                             </router-link>
                             </div>
@@ -466,7 +466,7 @@ export default {
 }
 
 .nickname {
-    margin-bottom: 1em;
+    margin-bottom: 0em;
 }
 
 @media(max-width: 320px) {
