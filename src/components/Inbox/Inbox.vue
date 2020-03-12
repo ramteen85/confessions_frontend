@@ -47,6 +47,9 @@ import _ from 'lodash';
 import VEmojiPicker from 'v-emoji-picker';
 
 export default {
+    components: {
+      VEmojiPicker
+    },
     data() {
         return {
             message: '',
@@ -418,6 +421,7 @@ export default {
     }
 
     .emoji {
+        cursor: pointer;
         margin-right: 1em;
         height: 100%;
         width: 100%;
