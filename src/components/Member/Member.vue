@@ -74,6 +74,9 @@
                         </div>
                     </div>
                 </div>
+                <div v-if="confessions.length === 0" class="wide-card">
+                    <h2>No Nearby Confessions...</h2>
+                </div>
             </div>
         </div>
     </div>
@@ -506,6 +509,22 @@ export default {
         width: 10em;
         box-shadow: #cccccc;
         margin: 0 0 1em 1em;
+        border: 1px solid purple;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-bottom: 1em;
+    }
+
+    .wide-card {
+        -webkit-box-shadow: 5px 7px 6px 0px rgba(50, 50, 50, 0.65);
+        -moz-box-shadow:    5px 7px 6px 0px rgba(50, 50, 50, 0.65);
+        box-shadow:         5px 7px 6px 0px rgba(50, 50, 50, 0.65);
+        height: 10em;
+        width: 50em;
+        box-shadow: #cccccc;
+        margin: 0 0 10em 1em;
         border: 1px solid purple;
         display: flex;
         flex-direction: column;
