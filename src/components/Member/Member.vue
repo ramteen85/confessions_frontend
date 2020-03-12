@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="confessions.data.length === 0 || confessions.length === 0" class="wide-card">
+                <div v-if="confessions.length === 0" class="wide-card">
                     <h2>No Nearby Confessions...</h2>
                 </div>
             </div>
