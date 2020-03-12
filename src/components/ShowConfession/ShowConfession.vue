@@ -251,8 +251,7 @@ export default {
     .section > img {
         width: 100%;
         height: 100%;
-        max-height: 10em;
-        max-width: 20em;
+        max-height: 15em;
     }
 
     .panel-section {
