@@ -199,6 +199,7 @@ export default {
                     }
                 });
                 this.loading = false;
+                console.log('new change');
             })
             .catch(err => {
                 console.log(err);
