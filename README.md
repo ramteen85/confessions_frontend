@@ -12,7 +12,3 @@ https://ramteen85.github.io/confessions_frontend/#/
 # Confessions Backend
 ----------------------------
 https://github.com/ramteen85/confessions_backend
-
-# Confessions Frontend
-----------------------------
-https://github.com/ramteen85/confessions_frontend
