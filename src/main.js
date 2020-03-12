@@ -12,8 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueGeolocation from 'vue-browser-geolocation';
 import Autoscroll from 'vue-autoscroll';
 import VueWebsocket from "vue-websocket";
-import { VEmojiPicker } from 'v-emoji-picker';
-Vue.use(VEmojiPicker);
 
 export const eventBus = new Vue();
 

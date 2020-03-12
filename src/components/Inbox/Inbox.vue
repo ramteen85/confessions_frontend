@@ -44,6 +44,7 @@
 import axios from 'axios';
 import { eventBus } from '../../main';
 import _ from 'lodash';
+import VEmojiPicker from 'v-emoji-picker';
 
 export default {
     data() {
