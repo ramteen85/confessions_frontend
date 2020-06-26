@@ -91,7 +91,7 @@ export default {
         }, 500);
       },
       getAllMessages(senderId, receiverId) {
-        axios.post(`${process.env.VUE_APP_URL}/messages/get/${senderId}/${receiverId}`, {
+        axios.post(`${process.env.VUE_APP_URL_LOCAL}/messages/get/${senderId}/${receiverId}`, {
             token: localStorage.getItem("jwt")
         })
         .then(res => {
@@ -120,7 +120,7 @@ export default {
       sendMessage(event) {
           event.preventDefault();
           if(this.message) {
-                  axios.post(`${process.env.VUE_APP_URL}/messages/send`,{
+                  axios.post(`${process.env.VUE_APP_URL_LOCAL}/messages/send`,{
                   convData: {
                       senderId: this.userId,
                       receiverId: this.$route.params.id,

@@ -52,7 +52,7 @@ export default {
             this.tokenExpired = true;
         }
 
-        console.log(process.env.VUE_APP_URL);
+        console.log(process.env.VUE_APP_URL_LOCAL);
     },
     methods: {
         submitForm: function(err) {
@@ -75,7 +75,7 @@ export default {
             } else {
                 // submit form
 
-                axios.post(`${process.env.VUE_APP_URL}/auth/login`, {
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/login`, {
                     result
                 })
                 .then(res => {

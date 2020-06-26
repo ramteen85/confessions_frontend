@@ -136,7 +136,7 @@ export default {
                     console.log('posting data to server');
                     await axios({
                         method: "POST",
-                        url: `${process.env.VUE_APP_URL}/confessions/new`,
+                        url: `${process.env.VUE_APP_URL_LOCAL}/confessions/new`,
                         data: formData,
                         headers: {
                             'Content-Type': `multipart/form-data;`

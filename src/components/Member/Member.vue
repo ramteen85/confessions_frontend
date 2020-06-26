@@ -40,40 +40,9 @@
                 <img :src="loadingPath" alt="">
             </div>
             <div v-if="loading==false" class="deck">
-                <div v-for="confession in confessions" :key="confession._id" class="card">
-                    <div class="cardbody">
-                        <div class="linkto" @click="() => showConfession(confession._id)">
-                            <div class="card-image-container">
-                                <img class="card-img" :src="confession.imageUrl" alt="">
-                            </div>
-                            <div class="card-title">
-                                <!-- needs to have a character limit of 208 -->
-                                <p>{{confession.subject}}</p>
-                            </div>
-                        </div>
-                        <!-- <div v-if="confession.creator._id != userId" class="card-button">
-                        <button class="btn" @click="() => messageUser(confession.creator._id)">Message User</button>
-                        </div> -->
-                    </div>
-                    <div class="card-panel">
-                        <div class="nickname">
-                            {{ confession.creator.nickname }}
-                        </div>
-                        <div class="reacts">
-                            <div class="reactbox" @click="() => {heartPost(confession._id)}">
-                                <div class="love"><font-awesome-icon icon="heart"/></div>
-                                <span>{{ confession.totalHearts }}</span>
-                            </div>
-                            <div class="reactbox" @click="() => {hatePost(confession._id)}">
-                                <div class="hate"><font-awesome-icon icon="hand-middle-finger"/></div>
-                                <span>{{ confession.totalHates }} </span>
-                            </div>
-                        </div>
-                        <div class="timestamp">
-                            {{ timeAgo(confession.createdAt) }}
-                        </div>
-                    </div>
-                </div>
+
+                <card v-for="confession in confessions" :key="confession._id" :confession="confession"/>
+                
                 <div v-if="confessions.length === 0" class="wide-card">
                     <h2>No Nearby Confessions...</h2>
                 </div>
@@ -84,7 +53,6 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 
 export default {
     data() {
@@ -134,44 +102,6 @@ export default {
         showConfession(id){
             this.$router.push('/confessions/show/' + id);
         },
-        heartPost(id) {
-            // use id to add to a posts hearts
-
-            axios.post(`${process.env.VUE_APP_URL}/confessions/heartPost`, {
-                confData: {
-                    token: localStorage.getItem("jwt"),
-                    id: id
-                }
-            })
-            .then(res => {
-                
-                const confession = this.confessions.find(c => c._id === id );
-
-                confession.totalHearts = res.data.hearts;
-                confession.totalHates = res.data.hates;
-                this.$socket.emit('refresh');
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        },
-        hatePost(id) {
-            // use id to add to a posts hates
-
-            axios.post(`${process.env.VUE_APP_URL}/confessions/hatePost`, {
-                confData: {
-                    token: localStorage.getItem("jwt"),
-                    id: id
-                }
-            })
-            .then(res => {
-                console.log(res);
-                this.$socket.emit('refresh');
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        },
         newConfession() {
             if(localStorage.getItem("jwt")) {
                 this.$router.push('/confessions/new');
@@ -179,11 +109,8 @@ export default {
                 this.$router.push('/');
             }
         },
-        timeAgo(date) {
-            return moment(String(date)).startOf('hour').fromNow();
-        },
         getConfessions() {
-            axios.post(`${process.env.VUE_APP_URL}/confessions/closest`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/closest`, {
                 confData: {
                     token: this.token,
                     page: this.page
@@ -207,7 +134,7 @@ export default {
         saveDistance() {
             this.loading = true;
             this.page = 1;
-            axios.post(`${process.env.VUE_APP_URL}/confessions/closest/sd`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/closest/sd`, {
                 token: this.token,
                 distance: this.distance
             })
@@ -221,7 +148,7 @@ export default {
         },
         saveTrueLoc() {
             // send lat and lng to server with token
-            axios.post(`${process.env.VUE_APP_URL}/auth/saveTrueUserLoc`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/saveTrueUserLoc`, {
                 data: {
                     token: localStorage.getItem("jwt"),
                     lat: this.lat,
@@ -263,7 +190,7 @@ export default {
             .then(res => {
                 console.log('ip: ', res.data);
                 // send user ip to server
-                axios.post(`${process.env.VUE_APP_URL}/auth/saveRoughUserLoc`,{
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/saveRoughUserLoc`,{
                     data: {
                         token: localStorage.getItem("jwt"),
                         ip: res.data
@@ -326,7 +253,7 @@ export default {
         this.loading = true;
 
         // check for location
-        axios.post(`${process.env.VUE_APP_URL}/auth/getUserLoc`, {
+        axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/getUserLoc`, {
             data: {
                 token: localStorage.getItem("jwt")
             }

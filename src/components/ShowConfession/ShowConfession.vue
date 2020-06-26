@@ -89,7 +89,7 @@ export default {
     methods: {
         deleteConfession() {
             if(confirm("Do you really want to delete?")){
-                axios.post(`${process.env.VUE_APP_URL}/confessions/delete`, {
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/delete`, {
                 confData: {
                     token: this.token,
                     id: this.id
@@ -108,7 +108,7 @@ export default {
             // use id to add to a posts hearts
             console.log(id);
 
-            axios.post(`${process.env.VUE_APP_URL}/confessions/heartPost`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/heartPost`, {
                 confData: {
                     token: this.token,
                     id: id
@@ -129,7 +129,7 @@ export default {
         hatePost(id) {
             // use id to add to a posts hates
 
-            axios.post(`${process.env.VUE_APP_URL}/confessions/hatePost`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/hatePost`, {
                 confData: {
                     token: localStorage.getItem("jwt"),
                     id: id
@@ -145,7 +145,7 @@ export default {
             });
         },
         getConfession() {
-            axios.post(`${process.env.VUE_APP_URL}/confessions/post`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/post`, {
                 confData: {
                     token: this.token,
                     id: this.$route.params.id

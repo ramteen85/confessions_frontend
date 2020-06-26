@@ -130,7 +130,7 @@ export default {
         heartPost(id) {
             // use id to add to a posts hearts
 
-            axios.post(`${process.env.VUE_APP_URL}/confessions/heartPost`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/heartPost`, {
                 confData: {
                     token: localStorage.getItem("jwt"),
                     id: id
@@ -147,7 +147,7 @@ export default {
         hatePost(id) {
             // use id to add to a posts hates
 
-            axios.post(`${process.env.VUE_APP_URL}/confessions/hatePost`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/hatePost`, {
                 confData: {
                     token: localStorage.getItem("jwt"),
                     id: id
@@ -172,7 +172,7 @@ export default {
             return moment(String(date)).startOf('second').fromNow();
         },
         getConfessions() {
-            axios.post(`${process.env.VUE_APP_URL}/confessions/hated`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/confessions/hated`, {
                 confData: {
                     token: this.token,
                     page: this.page,
@@ -194,7 +194,7 @@ export default {
         },
         saveTrueLoc() {
             // send lat and lng to server with token
-            axios.post(`${process.env.VUE_APP_URL}/auth/saveTrueUserLoc`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/saveTrueUserLoc`, {
                 data: {
                     token: localStorage.getItem("jwt"),
                     lat: this.lat,
@@ -232,7 +232,7 @@ export default {
             })
             .then(res => {
                 // send user ip to server
-                axios.post(`${process.env.VUE_APP_URL}/auth/saveRoughUserLoc`,{
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/saveRoughUserLoc`,{
                     data: {
                         token: localStorage.getItem("jwt"),
                         ip: res.data.ip
@@ -290,7 +290,7 @@ export default {
         this.userId = localStorage.getItem("userId");
 
         // check for location
-        axios.post(`${process.env.VUE_APP_URL}/auth/getUserLoc`, {
+        axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/getUserLoc`, {
             data: {
                 token: localStorage.getItem("jwt")
             }

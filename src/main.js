@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
+import Card from './components/layout/Card.vue';
 import Vuelidate from 'vuelidate';
 import VueRouter from 'vue-router';
 import { routes } from './routes';
@@ -19,15 +20,16 @@ export const eventBus = new Vue();
 Vue.use(VueGeolocation);
 
 // websockets
-Vue.use(VueWebsocket, `${process.env.VUE_APP_WEBSOCKET}`, {
+Vue.use(VueWebsocket, `${process.env.VUE_APP_WEBSOCKET_LOCAL}`, {
     reconnection: false
 });
 
 // auto scroll
 Vue.use(Autoscroll);
 
-library.add(faEnvelope, faHeart, faHandMiddleFinger, faBars, faGlobeAmericas, faBookMedical, faEnvelopeOpen)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(faEnvelope, faHeart, faHandMiddleFinger, faBars, faGlobeAmericas, faBookMedical, faEnvelopeOpen);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('card', Card);
 
 Vue.use(Vuelidate);
 

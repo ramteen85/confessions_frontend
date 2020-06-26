@@ -107,7 +107,7 @@ export default {
             } else {
                 //send signal
 
-                axios.post(`${process.env.VUE_APP_URL}/auth/register`, {
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/register`, {
                     result
                 })
                 .then(res => {
@@ -162,7 +162,7 @@ export default {
 
     .register {
         margin: 0 auto;
-        width: 230px;
+        width: 330px;
         padding: 20px;
         background: #f4f4f4;
         border-radius: 3px;

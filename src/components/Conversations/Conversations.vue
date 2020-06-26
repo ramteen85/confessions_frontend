@@ -55,7 +55,7 @@ export default {
             return moment(String(date)).startOf('hour').fromNow();
         },
         getChatList() {
-            axios.post(`${process.env.VUE_APP_URL}/auth/getChatList`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/getChatList`, {
                 data: {
                     token: this.token,
                     id: this.userId

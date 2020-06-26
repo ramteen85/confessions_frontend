@@ -61,10 +61,10 @@
                         <font-awesome-icon icon="bars"/>
                         <div style="position: relative">
                         <ul v-if="mainMenuShow" class="dropdown-menu">
-                            <li v-if="loggedin" class="dropdown-menu__item"><router-link to="/members/closest">Nearby</router-link></li>
-                            <li v-if="loggedin" class="dropdown-menu__item"><router-link to="/members/latest">Latest</router-link></li>
-                            <li v-if="loggedin" class="dropdown-menu__item"><router-link to="/members/popular">Popular</router-link></li>
-                            <li v-if="loggedin" class="dropdown-menu__item"><router-link to="/members/hated">Hated</router-link></li>
+                            <router-link to="/members/closest" class="dropdown-menu__item"><li v-if="loggedin">Nearby</li></router-link>
+                            <router-link to="/members/latest" class="dropdown-menu__item"><li v-if="loggedin">Latest</li></router-link>
+                            <router-link to="/members/popular" class="dropdown-menu__item"><li v-if="loggedin">Popular</li></router-link>
+                            <router-link to="/members/hated" class="dropdown-menu__item"><li v-if="loggedin">Hated</li></router-link>
                             <li v-if="loggedin" class="dropdown-menu__item" @click="logout">Logout</li>
                         </ul>
                         </div>
@@ -102,7 +102,7 @@ export default {
         },
         markMessages(senderId, receiverId, checkSenderId) {
             if(this.userId === checkSenderId) {
-                axios.post(`${process.env.VUE_APP_URL}/messages/markread`, {
+                axios.post(`${process.env.VUE_APP_URL_LOCAL}/messages/markread`, {
                     data: {
                         token: this.token,
                         senderId: senderId,
@@ -121,7 +121,7 @@ export default {
         },
         markAllMessages(event) {
             event.preventDefault();
-            axios.post(`${process.env.VUE_APP_URL}/messages/markallread`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/messages/markallread`, {
                 data: {
                     token: this.token,
                     senderId: this.userId
@@ -137,7 +137,7 @@ export default {
             });
         },
         getChatList() {
-            axios.post(`${process.env.VUE_APP_URL}/auth/getChatList`, {
+            axios.post(`${process.env.VUE_APP_URL_LOCAL}/auth/getChatList`, {
                 data: {
                     token: this.token,
                     id: this.userId
